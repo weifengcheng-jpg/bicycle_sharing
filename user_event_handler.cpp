@@ -16,10 +16,12 @@
 
 UserEventHandler::UserEventHandler() {
 	//需要实现订阅时间的处理
+	thread_mutex_create(&pm_);
 }
 
 UserEventHandler::~UserEventHandler() {
 	//需要实现退订时间的处理
+	thread_mutex_destroy(&pm_);
 }
 
 iEvent* UserEventHandler::handler(const iEvent* ev) {
@@ -59,7 +61,9 @@ MobileCodeRspEv* UserEventHandler::handle_mobile_code_req(MobileCodeReqEv* ev) {
 	printf("try to get moblie phone %s validate code.\n", mobile_.c_str());
 
 	icode = code_gen();
+	thread_mutex_lock(&pm_);
 	m2c_[mobile_] = icode;
+	thread_mutex_destroy(&pm_);
 	//LOG_DEBUG("send sms success");
 	printf("mobile: %s, code: %d\n", mobile_.c_str(), icode);
 	return new MobileCodeRspEv(200, icode);
