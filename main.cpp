@@ -4,6 +4,7 @@
 #include "bike.pb.h"
 #include "event.h"
 #include "events_def.h"
+#include "user_event_handler.h"
 
 int main()
 {
@@ -14,7 +15,7 @@ int main()
 
 	std::cout << msg.mobile() << std::endl;
 
-	std::cout << "¿ªÊ¼²âÊÔ==========" << std::endl;
+	std::cout << "kaishi==========" << std::endl;
 
 
 	iEvent* ie = new iEvent(EEVENTID_GET_MOBLIE_CODE_REQ, 2);
@@ -32,8 +33,12 @@ int main()
 	MobileCodeRspEv mcre03(0000, 666999);
 	mcre03.dump(std::cout);
 
+	std::cout << "Gets the CAPTCHA processing implementation=============demo01" << std::endl;
+	UserEventHandler ueh1;
+	ueh1.handler(&me);
+	
 
-	std::cout << "²âÊÔ½áÊø----------" << std::endl;
+	std::cout << "jieshu----------" << std::endl;
 
 
     return 0;
