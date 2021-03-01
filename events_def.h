@@ -9,7 +9,7 @@ class MobileCodeReqEv : public iEvent {
 public:
 	MobileCodeReqEv(const std::string& mobile) : iEvent(EEVENTID_GET_MOBLIE_CODE_REQ, iEvent::generateSeqNo()) {
 		this->msg_.set_mobile(mobile);
-
+		
 	}
 
 	const std::string& get_mobile() { return msg_.mobile(); }

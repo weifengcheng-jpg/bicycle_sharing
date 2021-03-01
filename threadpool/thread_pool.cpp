@@ -128,6 +128,12 @@ thread_task_alloc(size_t size)
     return task;
 }
 
+void thread_task_free(thread_task_t* task) {
+	if (task) {
+		free(task);
+	}
+}
+
 
 int_t
 thread_task_post(thread_pool_t *tp, thread_task_t *task)
@@ -219,6 +225,7 @@ thread_pool_cycle(void *data)
         if(debug) fprintf(stderr,"complete task #%lu in thread pool \"%s\"\n",task->id, tp->name);
 
         task->next = NULL;
+		thread_task_free(task);
 
         //notify 
     }

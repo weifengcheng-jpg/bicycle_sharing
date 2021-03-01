@@ -1,10 +1,12 @@
 #include <cstdio>
 #include <iostream>
+#include <unistd.h>
 
 #include "bike.pb.h"
 #include "event.h"
 #include "events_def.h"
 #include "user_event_handler.h"
+#include "DispatchMsgService.h"
 
 int main()
 {
@@ -33,12 +35,23 @@ int main()
 	MobileCodeRspEv mcre03(0000, 666999);
 	mcre03.dump(std::cout);
 
-	std::cout << "Gets the CAPTCHA processing implementation=============demo01" << std::endl;
 	UserEventHandler ueh1;
-	ueh1.handler(&me);
+	//ueh1.handler(&me);
+	
+	DispatchMsgService* DMS = DispatchMsgService::getInstance();
+	DMS->open();
+	
+	MobileCodeReqEv* pmcre = new MobileCodeReqEv("18219491350");
+	DMS->enqueue(pmcre);
+
+	//ueh1.handler(&mcre03);
 	
 
-	std::cout << "jieshu----------" << std::endl;
+	sleep(5);
+	DMS->close();
+	sleep(5);
+
+	std::cout << "jueshu==========" << std::endl;
 
 
     return 0;

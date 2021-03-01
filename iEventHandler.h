@@ -6,10 +6,13 @@
 
 class iEventHandler {
 public:
-	iEventHandler() {}
+	iEventHandler(const char* name) : name_(name) {}
 	virtual ~iEventHandler() {}
 
 	virtual iEvent* handler(const iEvent* ev) { return NULL; }
+	std::string& get_name() { return name_; }
+private:
+	std::string name_;
 };
 
 #endif // !NS_IEVENT_HANDLER_H_

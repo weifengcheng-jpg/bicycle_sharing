@@ -1,4 +1,5 @@
 #include "user_event_handler.h"
+#include "DispatchMsgService.h"
 
 #include <arpa/inet.h>
 #include <assert.h>
@@ -14,13 +15,19 @@
 #include <netdb.h>
 #include <unistd.h>
 
-UserEventHandler::UserEventHandler() {
+UserEventHandler::UserEventHandler() : iEventHandler("UserEventHandler") {
 	//需要实现订阅时间的处理
+	DispatchMsgService::getInstance()->subscribe(EEVENTID_GET_MOBLIE_CODE_REQ, this);
+	DispatchMsgService::getInstance()->subscribe(EEVENTID_LOGIN_REQ, this);
+
 	thread_mutex_create(&pm_);
 }
 
 UserEventHandler::~UserEventHandler() {
 	//需要实现退订时间的处理
+	DispatchMsgService::getInstance()->unsubscribe(EEVENTID_GET_MOBLIE_CODE_REQ, this);
+	DispatchMsgService::getInstance()->unsubscribe(EEVENTID_LOGIN_REQ, this);
+
 	thread_mutex_destroy(&pm_);
 }
 
@@ -31,7 +38,6 @@ iEvent* UserEventHandler::handler(const iEvent* ev) {
 	}
 
 	u32 eid = ev->get_eid();
-
 	if (eid == EEVENTID_GET_MOBLIE_CODE_REQ) {
 		return handle_mobile_code_req((MobileCodeReqEv*)ev);
 	}
@@ -48,7 +54,7 @@ iEvent* UserEventHandler::handler(const iEvent* ev) {
 		//
 	}
 	else if (eid == EEVENTID_LIST_TRAVELS_REQ) {
-		//16;50
+		//
 	}
 
 	return NULL;
