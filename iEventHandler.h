@@ -1,7 +1,7 @@
 #ifndef NS_IEVENT_HANDLER_H_
 #define NS_IEVENT_HANDLER_H_
 
-#include "event.h"
+#include "ievent.h"
 #include "eventtype.h"
 
 class iEventHandler {

@@ -18,7 +18,7 @@ Each event handler needs to subscribe the event before it can be called.
 #include <map>
 #include <vector>
 
-#include "event.h"
+#include "ievent.h"
 #include "eventtype.h"
 #include "iEventHandler.h"
 #include "threadpool/thread_pool.h"

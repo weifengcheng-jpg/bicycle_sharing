@@ -1,7 +1,7 @@
 #ifndef BRKS_COMMON_EVENTS_DEF_H_
 #define BRKS_COMMON_EVENTS_DEF_H_
 
-#include "event.h"
+#include "ievent.h"
 #include <string>
 #include "bike.pb.h"
 
